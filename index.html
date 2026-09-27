@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-data="app()" :class="{'dark': dark}" class="scroll-smooth">
+<html lang="en" x-data="app()" :class="{'dark': dark}" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -210,7 +210,7 @@
         </a>
 
         <!-- Light / Dark Theme Toggle Button -->
-        <button @click="dark = !dark; localStorage.setItem('theme', dark ? 'dark' : 'light')" 
+        <button @click="dark = !dark; localStorage.setItem('site_theme', dark ? 'dark' : 'light'); localStorage.setItem('theme', dark ? 'dark' : 'light')" 
           class="w-9 h-9 flex items-center justify-center rounded-full border border-slate-300 dark:border-[#26262E] bg-slate-100/60 dark:bg-[#18181D] text-slate-700 dark:text-zinc-200 hover:text-[#6366F1] dark:hover:text-[#818CF8] hover:border-[#6366F1] transition-all"
           :aria-label="dark ? 'Switch to light mode' : 'Switch to dark mode'"
           :title="dark ? 'Switch to light mode' : 'Switch to dark mode'">
@@ -246,7 +246,7 @@
         <li><a href="#credentials" @click="mm=false" class="block text-slate-700 dark:text-zinc-300 hover:text-[#6366F1] dark:hover:text-[#818CF8] transition-colors">Certifications</a></li>
         <li><a href="#contact"  @click="mm=false" class="block text-slate-700 dark:text-zinc-300 hover:text-[#6366F1] dark:hover:text-[#818CF8] transition-colors">Contact</a></li>
         <li class="pt-2 flex items-center justify-between">
-          <button @click="dark = !dark; localStorage.setItem('theme', dark ? 'dark' : 'light')" class="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-zinc-300">
+          <button @click="dark = !dark; localStorage.setItem('site_theme', dark ? 'dark' : 'light'); localStorage.setItem('theme', dark ? 'dark' : 'light')" class="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-zinc-300">
             <span x-text="dark ? '☀️ Switch to Light' : '🌙 Switch to Dark'"></span>
           </button>
           <a href="#contact" @click="mm=false" class="inline-flex shimmer bg-[#6366F1] hover:bg-[#4F46E5] text-white font-bold text-sm px-4 py-2 rounded-full shadow-md shadow-[#6366F1]/30">Get a website →</a>
@@ -1374,21 +1374,26 @@
   <script>
     function app() {
       return {
-        dark: false,
+        dark: true,
         mm: false,
         sc: false,
         s: 'hero',
 
         init() {
-          // Default to light mode (white theme) as requested
-          if (!localStorage.getItem('theme_preference_set')) {
-            localStorage.setItem('theme', 'light');
-            localStorage.setItem('theme_preference_set', 'true');
+          // Always default to Dark Theme on open
+          localStorage.removeItem('theme_preference_set');
+          const savedTheme = localStorage.getItem('site_theme');
+          if (savedTheme === 'light') {
             this.dark = false;
           } else {
-            this.dark = localStorage.getItem('theme') === 'dark';
+            this.dark = true;
+            localStorage.setItem('site_theme', 'dark');
+            localStorage.setItem('theme', 'dark');
           }
-          this.$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'));
+          this.$watch('dark', v => {
+            localStorage.setItem('site_theme', v ? 'dark' : 'light');
+            localStorage.setItem('theme', v ? 'dark' : 'light');
+          });
 
           // Scroll listener
           window.addEventListener('scroll', () => {
