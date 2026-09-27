@@ -104,6 +104,52 @@
       animation: greenPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 
+    /* Balanced mobile typography & line-length alignment */
+    p {
+      text-wrap: pretty;
+    }
+    h1, h2, h3, h4 {
+      text-wrap: balance;
+    }
+
+    @media (max-width: 640px) {
+      /* Prevents alternating long and short lines on phone screens */
+      p {
+        font-size: 0.875rem !important; /* Refined 14px so words flow smoothly and evenly */
+        line-height: 1.62 !important;
+        text-wrap: pretty !important;
+        hyphens: manual;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
+
+      /* Hero paragraph on mobile: balanced line breaks, no awkward orphans */
+      #hero p {
+        font-size: 0.925rem !important; /* ~14.8px - balanced so line wraps are even and clean */
+        line-height: 1.65 !important;
+        text-wrap: balance !important;
+        max-width: 95% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+
+      /* Section subtitle & descriptions on mobile */
+      section p.max-w-2xl {
+        font-size: 0.875rem !important;
+        line-height: 1.6 !important;
+        text-wrap: pretty !important;
+      }
+
+      /* Card descriptions on mobile */
+      article p, .card-h p {
+        font-size: 0.85rem !important;
+        line-height: 1.58 !important;
+        text-wrap: pretty !important;
+      }
+    }
+
     /* ALL CONTENT ALWAYS VISIBLE - NEVER BLANK! */
     .reveal {
       opacity: 1 !important;
@@ -197,8 +243,8 @@
     <nav class="w-full max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
 
       <!-- Logo: HariCharan -->
-      <a href="#hero" class="font-display font-bold text-xl tracking-tight relative z-10 flex items-center gap-2.5 group" aria-label="Haricharan Home">
-        <img src="assets/logo.png" alt="HariCharan Logo" class="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105" />
+      <a href="#hero" class="font-display font-bold text-xl tracking-tight relative z-10 flex items-center gap-2.5 sm:gap-3 group" aria-label="Haricharan Home">
+        <img src="assets/logo.png" alt="HariCharan Logo" class="h-9 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(99,102,241,0.55)]" />
         <span class="text-slate-900 dark:text-white font-bold text-xl tracking-tight">Hari<span class="text-[#6366F1] dark:text-[#818CF8]">Charan</span></span>
       </a>
 
@@ -1334,7 +1380,10 @@
     <div class="w-full max-w-6xl mx-auto px-4 sm:px-6 flex flex-col gap-4">
       <!-- Top Row: Brand on left, Social Media Icons directly to the right space -->
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span class="font-display font-bold text-lg text-slate-900 dark:text-white">Hari<span class="text-[#6366F1] dark:text-[#818CF8]">Charan</span></span>
+        <a href="#hero" class="font-display font-bold text-lg sm:text-xl text-slate-900 dark:text-white flex items-center gap-2.5 group" aria-label="Haricharan Home">
+          <img src="assets/logo.png" alt="HariCharan Logo" class="h-8 sm:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105 drop-shadow-[0_0_8px_rgba(99,102,241,0.45)]" />
+          <span>Hari<span class="text-[#6366F1] dark:text-[#818CF8]">Charan</span></span>
+        </a>
         
         <!-- Social Icons positioned directly on the right side of HariCharan (Brand colors permanently visible) -->
         <div class="flex items-center gap-2.5 sm:gap-3 text-sm flex-wrap relative z-30">
@@ -1369,8 +1418,11 @@
 
       <!-- Bottom Row: Copyright + Blinking Status Badge -->
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-slate-200 dark:border-[#1E1E24]">
-        <p class="text-xs text-slate-500 dark:text-zinc-400 text-center sm:text-left">
-          © <span id="yr"></span> Haricharan All rights reserved. • Co-Founder &amp; CFO at <a href="https://mavtop.in" target="_blank" rel="noopener noreferrer" class="font-semibold text-slate-700 dark:text-zinc-200 hover:text-[#6366F1] dark:hover:text-[#818CF8] underline underline-offset-2 transition-colors">Mavtop Technologies</a>
+        <p class="text-xs text-slate-500 dark:text-zinc-400 text-center sm:text-left flex items-center gap-1.5 flex-wrap justify-center sm:justify-start">
+          <span>© <span id="yr"></span> Haricharan All rights reserved.</span>
+          <span>•</span>
+          <span>Co-Founder &amp; CFO at <a href="https://mavtop.in" target="_blank" rel="noopener noreferrer" class="font-semibold text-slate-700 dark:text-zinc-200 hover:text-[#6366F1] dark:hover:text-[#818CF8] underline underline-offset-2 transition-colors">Mavtop Technologies</a></span>
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.9)] animate-pulse shrink-0 ml-0.5" title="Mavtop Technologies" aria-label="Mavtop Status Indicator"></span>
         </p>
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 text-xs font-medium shrink-0">
           <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot-green shrink-0"></span>
